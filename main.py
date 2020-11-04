@@ -17,6 +17,7 @@ def send_msg(title,msg):
     requests.Session().post(f'https://api.telegram.org/bot'+BOT_TOKEN+'/sendMessage?chat_id='+CHANNEL_ID+'&text='+title+'%0A'+msg, headers=headers)
     
 def main():
+    prev=None #a shit scheme to save previous title to stop repitition
     #print("running..."+str(i), end='\r')
     news=feedparser.parse(FEED_URL)
     for entry in news.entries:
@@ -24,17 +25,20 @@ def main():
         #parsed_date = (parsed_date - timedelta(hours=8)).replace(tzinfo=None)
         now_date = datetime.utcnow()
 
-        published_3_minutes_ago = now_date - parsed_date < timedelta(minutes=2)
+        published_2_minutes_ago = now_date - parsed_date < timedelta(minutes=2)
         #print(published_5_minutes_ago)
-        if published_3_minutes_ago AND entry.title!=prev:
-            if prev==None: prev=entry.title
+        if published_2_minutes_ago AND entry.title!=prev:
+            if prev==None:
+                prev=entry.title
             send_msg(entry.title,entry.links[0].href)
             print(entry.links[0].href)    
             #sleep(60)
 if __name__=="__main__":
     #i=1
+    prev=None
     while(True):
         prev=None
         main()
         sleep(2*60)
+        prev=None
         #i+=1
