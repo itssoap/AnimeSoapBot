@@ -1,7 +1,7 @@
 {
 "name": "AnimeSoapBot",
 "description": "Delivers Latest Anime Episode Releases straight to Telegram",
-"version": "1.0",
+"version": "0.4",
 "main": "main.py",
 "scripts": {
 	"start": "python main.py"
