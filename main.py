@@ -27,7 +27,7 @@ def main():
 
         published_2_minutes_ago = now_date - parsed_date < timedelta(minutes=2)
         #print(published_5_minutes_ago)
-        if published_2_minutes_ago AND entry.title!=prev:
+        if published_2_minutes_ago and entry.title!=prev:
             if prev==None:
                 prev=entry.title
             send_msg(entry.title,entry.links[0].href)
